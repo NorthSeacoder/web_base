@@ -1,0 +1,30 @@
+{
+  "name": "web_base",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "vuepress dev docs",
+    "build": "vuepress build docs",
+    "deploy": "vuepress build docs&&gh-pages -d docs/.vuepress/dist -b docs",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NorthSeacoder/web_base_data_structure.git"
+  },
+  "keywords": [
+    "data",
+    "structure"
+  ],
+  "author": "nsc",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NorthSeacoder/web_base_data_structure/issues"
+  },
+  "homepage": "https://github.com/NorthSeacoder/web_base_data_structure#readme",
+  "devDependencies": {
+    "gh-pages": "^2.2.0",
+    "vuepress": "^1.4.0"
+  }
+}
