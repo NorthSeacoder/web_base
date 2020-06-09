@@ -1,5 +1,5 @@
 module.exports = {
-    base: '/web-base/',
+    base: '/web_base/',
     title: '基础',
     description: 'Just playing around',
     head: [['link', {rel: 'icon', href: '/web-base.png'}]],
