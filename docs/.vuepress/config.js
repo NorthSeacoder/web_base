@@ -1,3 +1,5 @@
+const path = require('path');
+
 module.exports = {
     base: '/web_base/',
     title: '基础',
@@ -6,7 +8,15 @@ module.exports = {
     markdown: {
         lineNumbers: true
     },
-    plugins: ['live'],
+    plugins: [
+      [
+        'live',
+        {
+          // to use a custom layout for your vue components
+          layout: path.resolve(__dirname, './layout.vue'),
+        }
+      ],
+    ],
     themeConfig: {
         logo: '/web-base.png',
         nav: [

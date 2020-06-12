@@ -6,5 +6,6 @@ export default ({
   options,
   router
 }) => {
-    Vue.$chart=autoChart
+    Object.assign(Vue.prototype, {$autoChart:autoChart});
+    console.log(Vue)
 }

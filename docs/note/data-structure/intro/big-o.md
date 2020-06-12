@@ -1,10 +1,6 @@
 ## 大 O 记号
 
 ```vue live
-<template>
-    <div id="box"></div>
-</template>
-
 <script>
 export default {
     data() {
@@ -16,7 +12,7 @@ export default {
             {date: '2020/01/01', value: '666'},
             {date: '2020/01/02', value: '888'}
         ];
-        this.$chart(ele, data);
+        this.$autoChart(ele, data);
     }
 };
 </script>
