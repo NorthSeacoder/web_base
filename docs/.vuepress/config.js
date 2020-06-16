@@ -57,7 +57,10 @@ module.exports = {
                 {
                     title: '绪论',
                     collapsable: false,
-                    children: [['intro/big-o', '大O记号']]
+                    children: [
+                        ['intro/big-o', '大O记号'],
+                        ['intro/dp', '动态规划'],
+                    ]
                 }
             ]
         }
