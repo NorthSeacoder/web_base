@@ -2,7 +2,7 @@ const path = require('path');
 
 module.exports = {
     base: '/web_base/',
-    title: '基础',
+    title: '前端补完计划',
     description: 'Just playing around',
     head: [['link', {rel: 'icon', href: '/web-base.png'}]],
     markdown: {
@@ -61,7 +61,14 @@ module.exports = {
                         ['intro/big-o', '大O记号'],
                         ['intro/dp', '动态规划'],
                     ]
-                }
+                },
+                {
+                    title: '向量',
+                    collapsable: false,
+                    children: [
+                        ['vector/adt-and-interface', '抽象数据类型与接口'],
+                    ]
+                },
             ]
         }
     }
@@ -70,29 +77,45 @@ module.exports = {
 function getGuideSidebar() {
     return [
         {
-            title: '链表',
+            title: '基础',
             collapsable: false,
-            children: ['LinkedList']
+            children: [
+                ['base/','本章目标'],
+                ['base/complexity', '复杂度分析'],
+            ]
         },
         {
-            title: '栈',
+            title: '常见数据结构',
             collapsable: false,
-            children: ['Stack']
+            children: [
+                ['common-data-structure/','本章目标'],
+                ['common-data-structure/linked-list', '链表'],
+            ]
         },
-        {
-            title: '队列',
-            collapsable: false,
-            children: ['Queue']
-        },
-        {
-            title: '树',
-            collapsable: false,
-            children: ['Tree']
-        },
-        {
-            title: '图',
-            collapsable: false,
-            children: ['Graph']
-        }
+        // {
+        //     title: '链表',
+        //     collapsable: false,
+        //     children: ['LinkedList']
+        // },
+        // {
+        //     title: '栈',
+        //     collapsable: false,
+        //     children: ['Stack']
+        // },
+        // {
+        //     title: '队列',
+        //     collapsable: false,
+        //     children: ['Queue']
+        // },
+        // {
+        //     title: '树',
+        //     collapsable: false,
+        //     children: ['Tree']
+        // },
+        // {
+        //     title: '图',
+        //     collapsable: false,
+        //     children: ['Graph']
+        // }
     ];
 }

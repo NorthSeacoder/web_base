@@ -38,18 +38,19 @@ const fib_memoization = (n) => {
 // console.log(res2);
 
 const lcs = (str1, str2) => {
-    console.log(str1, str2)
     if (str1.length === 0 || str2.length === 0) return '';
     const array1 = str1.split('');
     const array2 = str2.split('');
     const lastValue1 = array1.splice(-1, 1);
     const lastValue2 = array2.splice(-1, 1);
     if(lastValue1===lastValue2){
-        return lcs(array1.join(),array2.join())+lastValue1
+        return lcs(array1.join(''),array2.join(''))+lastValue1
     }else{
-        const r=lcs(str1,array2.join())
-        const r1=lcs(array1.join(),str2)
-        return r>r1?r:r1
+        console.log(str1,array2.join(''))
+        const r=lcs(str1,array2.join(''))
+        console.log(r)
+        const r1=lcs(array1.join(''),str2)
+        return r.length>r1.length?r:r1
     }
 };
 const str1 = 'dkiudhbvuhd';

@@ -62,7 +62,8 @@ const fib = (n) => {
 //递归
 const string=[]
 const lcs = (str1, str2) => {
-    const array1=str1.split('')
-    const array2=str2.split('')
+    const array1=str1.split('');
+    const array2=str2.split('');
+    
 };
 ```
