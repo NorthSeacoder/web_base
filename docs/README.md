@@ -1,5 +1,6 @@
 ---
 home: true
+navbar: false
 heroImage: /web-base.png
 actionText: Get Started →
 actionLink: /content/

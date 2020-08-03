@@ -1,0 +1,11 @@
+{
+    "intro": {
+        "title": "绪论",
+        "dp": "动态规划",
+        "big-o": "大O记号"
+    },
+    "vector": {
+        "title": "向量",
+        "adt-and-interface": "抽象数据类型与接口"
+    }
+}

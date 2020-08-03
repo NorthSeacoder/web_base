@@ -1,4 +1,5 @@
 const path = require('path');
+const {getSidebarConfig} =require('./utils')
 
 module.exports = {
     base: '/web_base/',
@@ -44,7 +45,9 @@ module.exports = {
             {text: 'Github', link: 'https://github.com/NorthSeacoder'}
         ],
         sidebar: {
-            '/base/data-structure/': getGuideSidebar(),
+            '/base/data-structure/': getSidebarConfig('./base/data-structure/'),
+            
+            '/note/data-structure/': getSidebarConfig('./note/data-structure/'),
             '/base/computer-networks/': [
                 {
                     title: '计算机网络',
@@ -53,69 +56,7 @@ module.exports = {
                 }
             ],
 
-            '/note/data-structure/': [
-                {
-                    title: '绪论',
-                    collapsable: false,
-                    children: [
-                        ['intro/big-o', '大O记号'],
-                        ['intro/dp', '动态规划'],
-                    ]
-                },
-                {
-                    title: '向量',
-                    collapsable: false,
-                    children: [
-                        ['vector/adt-and-interface', '抽象数据类型与接口'],
-                    ]
-                },
-            ]
+            
         }
     }
 };
-
-function getGuideSidebar() {
-    return [
-        {
-            title: '基础',
-            collapsable: false,
-            children: [
-                ['base/','本章目标'],
-                ['base/complexity', '复杂度分析'],
-            ]
-        },
-        {
-            title: '常见数据结构',
-            collapsable: false,
-            children: [
-                ['common-data-structure/','本章目标'],
-                ['common-data-structure/linked-list', '链表'],
-            ]
-        },
-        // {
-        //     title: '链表',
-        //     collapsable: false,
-        //     children: ['LinkedList']
-        // },
-        // {
-        //     title: '栈',
-        //     collapsable: false,
-        //     children: ['Stack']
-        // },
-        // {
-        //     title: '队列',
-        //     collapsable: false,
-        //     children: ['Queue']
-        // },
-        // {
-        //     title: '树',
-        //     collapsable: false,
-        //     children: ['Tree']
-        // },
-        // {
-        //     title: '图',
-        //     collapsable: false,
-        //     children: ['Graph']
-        // }
-    ];
-}
