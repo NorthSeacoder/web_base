@@ -1,0 +1,19 @@
+//options
+$itemPerRow    : 3; // here you can change the grid items per row.
+$colMargin     : 1; // change gaps between each grid item.
+$itemWidth     : 100% / $itemPerRow - $colMargin * 2;
+$valueToMargin : percentage($colMargin/100);
+
+//colors
+$primary-color   : #333;
+$secondary-color : #fff;
+$font-color      : #fff;//options
+$itemPerRow    : 3; // here you can change the grid items per row.
+$colMargin     : 1; // change gaps between each grid item.
+$itemWidth     : 100% / $itemPerRow - $colMargin * 2;
+$valueToMargin : percentage($colMargin/100);
+
+//colors
+$primary-color   : #333;
+$secondary-color : #fff;
+$font-color      : #fff;

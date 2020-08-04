@@ -3,70 +3,19 @@
     class="home"
     aria-labelledby="main-title"
   >
-    <header class="hero">
-      <!-- <img
-        v-if="data.heroImage"
-        :src="$withBase(data.heroImage)"
-        :alt="data.heroAlt || 'hero'"
-      >
-
-      <h1
-        v-if="data.heroText !== null"
-        id="main-title"
-      >
-        {{ data.heroText || $title || 'Hello' }}
-      </h1> -->
-      <div class="direction-reveal">
-
-        <a href="#" class="direction-reveal__card">
-          <img :src="$withBase(data.heroImage)" alt="Image" class="img-fluid">
-
-          <div class="direction-reveal__overlay direction-reveal__anim--enter">
-            <h3 class="direction-reveal__title">Title</h3>
-            <p class="direction-reveal__text">Description text.</p>
-          </div>
-        </a>
-      </div>
-
-      <p
-        v-if="data.tagline !== null"
-        class="description"
-      >
-        {{ data.tagline || $description || 'Welcome to your VuePress site' }}
-      </p>
-
-      <p
-        v-if="data.actionText && data.actionLink"
-        class="action"
-      >
-        <NavLink
-          class="action-button"
-          :item="actionLink"
-        />
-      </p>
-    </header>
-
-    <div
-      v-if="data.features && data.features.length"
-      class="features"
-    >
-      <div
-        v-for="(feature, index) in data.features"
-        :key="index"
-        class="feature"
-      >
-        <h2>{{ feature.title }}</h2>
-        <p>{{ feature.details }}</p>
-      </div>
-    </div>
-
-    <Content class="theme-default-content custom" />
-
-    <div
-      v-if="data.footer"
-      class="footer"
-    >
-      {{ data.footer }}
+    <h1>Front End Instrumentality Project  
+      <small>keep everyThing I want to konw</small>
+    </h1>
+    <div class="grid-wrap">
+      <RouterLink class="list-block" to="#">
+        <figure>
+          <img src="https://picsum.photos/500/350?random=1" alt="" />
+          <figcaption>
+            <h2>Thumbnail 01</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+          </figcaption>
+        </figure>
+      </RouterLink>
     </div>
   </main>
 </template>
@@ -77,122 +26,133 @@ import DirectionReveal from '../util/direction-reveal';
 import NavLink from '@theme/components/NavLink.vue'
 
 export default {
-  name: 'Home',
+    name: 'Home',
 
-  components: { NavLink },
-  data() {
-    return {
-      directionRevealDefault: {}
-    }
-  },
-  mounted () {
-    this.directionRevealDefault = DirectionReveal();;
-  },
-  computed: {
-    data () {
-      return this.$page.frontmatter
+    components: {NavLink},
+    data() {
+        return {
+            directionRevealDefault: {}
+        }
     },
+    mounted() {
+        this.directionRevealDefault = DirectionReveal();;
+    },
+    computed: {
+        data() {
+            return this.$page.frontmatter
+        },
 
-    actionLink () {
-      return {
-        link: this.data.actionLink,
-        text: this.data.actionText
-      }
+        actionLink() {
+            return {
+                link: this.data.actionLink,
+                text: this.data.actionText
+            }
+        }
     }
-  }
 }
 </script>
 <style lang="scss">
-@import "../styles/direction-reveal.scss";
+@import '../styles/direction-reveal.scss';
+@import '../styles/mixins.scss';
+@import '../styles/vars.scss';
+h1 {
+    color: white;
+    padding: $valueToMargin * 4;
+    font-size: 30px;
+    text-transform: uppercase;
+    font-weight: 700;
+    text-align: center;
+    small {
+        font-size: 18px;
+        display: block;
+        text-transform: none;
+        font-weight: 300;
+        margin-top: 5px;
+    }
+}
+.grid-wrap {
+    padding: $valueToMargin;
+}
+.list-block {
+    float: left;
+    margin: $valueToMargin;
+    width: $itemWidth;
+    font-size: 0;
+    overflow: hidden;
+    border-radius: 30px;
+    box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.2);
+    figure {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        position: relative;
+        display: block;
+        color: darken($font-color, 100%);
+        text-align: center;
+        &:after {
+            background: $secondary-color;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            content: '';
+            opacity: 0.7;
+            transition: all 0.3s ease-in-out;
+            @include transformSkewScale(-45deg, 0);
+        }
 
-</style>
-<style lang="stylus">
-.home
-  padding $navbarHeight 2rem 0
-  max-width $homePageWidth
-  margin 0px auto
-  display block
-  .hero
-    text-align center
-    img
-      max-width: 100%
-      max-height 280px
-      display block
-      margin 3rem auto 1.5rem
-    h1
-      font-size 3rem
-    h1, .description, .action
-      margin 1.8rem auto
-    .description
-      max-width 35rem
-      font-size 1.6rem
-      line-height 1.3
-      color lighten($textColor, 40%)
-    .action-button
-      display inline-block
-      font-size 1.2rem
-      color #fff
-      background-color $accentColor
-      padding 0.8rem 1.6rem
-      border-radius 4px
-      transition background-color .1s ease
-      box-sizing border-box
-      border-bottom 1px solid darken($accentColor, 10%)
-      &:hover
-        background-color lighten($accentColor, 10%)
-  .features
-    border-top 1px solid $borderColor
-    padding 1.2rem 0
-    margin-top 2.5rem
-    display flex
-    flex-wrap wrap
-    align-items flex-start
-    align-content stretch
-    justify-content space-between
-  .feature
-    flex-grow 1
-    flex-basis 30%
-    max-width 30%
-    h2
-      font-size 1.4rem
-      font-weight 500
-      border-bottom none
-      padding-bottom 0
-      color lighten($textColor, 10%)
-    p
-      color lighten($textColor, 25%)
-  .footer
-    padding 2.5rem
-    border-top 1px solid $borderColor
-    text-align center
-    color lighten($textColor, 25%)
-
-@media (max-width: $MQMobile)
-  .home
-    .features
-      flex-direction column
-    .feature
-      max-width 100%
-      padding 0 2.5rem
-
-@media (max-width: $MQMobileNarrow)
-  .home
-    padding-left 1.5rem
-    padding-right 1.5rem
-    .hero
-      img
-        max-height 210px
-        margin 2rem auto 1.2rem
-      h1
-        font-size 2rem
-      h1, .description, .action
-        margin 1.2rem auto
-      .description
-        font-size 1.2rem
-      .action-button
-        font-size 1rem
-        padding 0.6rem 1.2rem
-    .feature
-      h2
-        font-size 1.25rem
+        &:hover {
+            &:after {
+                @include transformSkewScale(-45deg, 1);
+                transition: all 400ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            }
+            figcaption h2,
+            figcaption p {
+                transform: translate3d(0%, 0%, 0);
+                -webkit-transition-delay: 0.2s;
+                transition-delay: 0.2s;
+            }
+            figcaption h2 {
+                opacity: 1;
+            }
+            figcaption p {
+                opacity: 0.7;
+            }
+        }
+    }
+    img {
+        opacity: 1;
+        max-width: 100%;
+        min-width: 100%;
+        transition: opacity 0.35s ease;
+    }
+    figcaption {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 100%;
+        transform: translateY(-50%);
+        z-index: 1;
+    }
+    h2,
+    p {
+        margin: 0;
+        width: 100%;
+        opacity: 0;
+        border: 0;
+    }
+    h2 {
+        padding: 0 30px 10px;
+        display: inline-block;
+        font-weight: 400;
+        text-transform: uppercase;
+        font-size: 24px;
+    }
+    p {
+        padding: 0 50px;
+        font-size: 14px;
+        text-transform: uppercase;
+    }
+}
 </style>
