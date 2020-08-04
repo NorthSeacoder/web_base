@@ -18,7 +18,7 @@
                 </figure>
             </RouterLink>
         </template>
-        <RouterLink class="list-block" to="https://github.com/NorthSeacoder">
+        <a class="list-block" href="https://github.com/NorthSeacoder" target="_blank">
             <figure>
             <img src="../assets/Octocat.png" alt="" />
             <figcaption>
@@ -26,7 +26,7 @@
                 <p>NorthSeacoder</p>
             </figcaption>
             </figure>
-        </RouterLink>
+        </a>
     </div>
   </main>
 </template>
