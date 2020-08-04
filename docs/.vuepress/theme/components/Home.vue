@@ -7,21 +7,33 @@
       <small>keep everyThing I want to konw</small>
     </h1>
     <div class="grid-wrap">
-      <RouterLink class="list-block" to="#">
-        <figure>
-          <img src="https://picsum.photos/500/350?random=1" alt="" />
-          <figcaption>
-            <h2>Thumbnail 01</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-          </figcaption>
-        </figure>
-      </RouterLink>
+        <template v-for="(item,i) in HomeLinks">
+            <RouterLink class="list-block" :to="link(item.link)">
+                <figure>
+                <img :src="`https://picsum.photos/500/350?random=${i}`" alt="" />
+                <figcaption>
+                    <h2>{{item.text}}</h2>
+                    <p>{{item.parent}}</p>
+                </figcaption>
+                </figure>
+            </RouterLink>
+        </template>
+        <RouterLink class="list-block" to="https://github.com/NorthSeacoder">
+            <figure>
+            <img src="../assets/Octocat.png" alt="" />
+            <figcaption>
+                <h2>GitHub</h2>
+                <p>NorthSeacoder</p>
+            </figcaption>
+            </figure>
+        </RouterLink>
     </div>
   </main>
 </template>
 
 <script>
-import DirectionReveal from '../util/direction-reveal';
+// import DirectionReveal from '../util/direction-reveal';
+import {resolveNavLinkItem, ensureExt} from '../util'
 
 import NavLink from '@theme/components/NavLink.vue'
 
@@ -34,9 +46,9 @@ export default {
             directionRevealDefault: {}
         }
     },
-    mounted() {
-        this.directionRevealDefault = DirectionReveal();;
-    },
+    // mounted() {
+    //     this.directionRevealDefault = DirectionReveal();;
+    // },
     computed: {
         data() {
             return this.$page.frontmatter
@@ -47,14 +59,70 @@ export default {
                 link: this.data.actionLink,
                 text: this.data.actionText
             }
+        },
+
+        userNav() {
+            return this.$themeLocaleConfig.nav || this.$site.themeConfig.nav || []
+        },
+
+        nav() {
+            const {locales} = this.$site
+            if (locales && Object.keys(locales).length > 1) {
+                const currentLink = this.$page.path
+                const routes = this.$router.options.routes
+                const themeLocales = this.$site.themeConfig.locales || {}
+                const languageDropdown = {
+                    text: this.$themeLocaleConfig.selectText || 'Languages',
+                    ariaLabel: this.$themeLocaleConfig.ariaLabel || 'Select language',
+                    items: Object.keys(locales).map(path => {
+                        const locale = locales[path]
+                        const text = themeLocales[path] && themeLocales[path].label || locale.lang
+                        let link
+                        // Stay on the current page
+                        if (locale.lang === this.$lang) {
+                            link = currentLink
+                        } else {
+                            // Try to stay on the same page
+                            link = currentLink.replace(this.$localeConfig.path, path)
+                            // fallback to homepage
+                            if (!routes.some(route => route.path === link)) {
+                                link = path
+                            }
+                        }
+                        return {text, link}
+                    })
+                }
+                return [...this.userNav, languageDropdown]
+            }
+            return this.userNav
+        },
+
+        userLinks() {
+            return (this.nav || []).map(link => {
+                return Object.assign(resolveNavLinkItem(link), {
+                    items: (link.items || []).map(resolveNavLinkItem)
+                })
+            })
+        },
+
+        HomeLinks() {
+            return this.userLinks.filter(({type}) => type === 'links').flatMap(({items, text}) => {
+                return items.map(children => ({...children, parent: text}))
+            })
         }
-    }
+    },
+    methods: {
+        link(url) {
+            return ensureExt(url)
+        }
+    },
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 @import '../styles/direction-reveal.scss';
 @import '../styles/mixins.scss';
 @import '../styles/vars.scss';
+
 h1 {
     color: white;
     padding: $valueToMargin * 4;
@@ -146,13 +214,11 @@ h1 {
         padding: 0 30px 10px;
         display: inline-block;
         font-weight: 400;
-        text-transform: uppercase;
         font-size: 24px;
     }
     p {
         padding: 0 50px;
         font-size: 14px;
-        text-transform: uppercase;
     }
 }
 </style>
