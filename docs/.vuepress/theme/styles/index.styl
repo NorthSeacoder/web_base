@@ -16,7 +16,6 @@ html, body
   height: 100%
   height: 100%
   background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%)
-  overflow: hidden
   // background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%)
   // overflow: hidden
 body
@@ -31,7 +30,8 @@ body
 .page
   padding-left $sidebarWidth
   background-color #fff
-  height 100vh
+  min-height 100vh
+  
 .navbar
   position fixed
   z-index 20
