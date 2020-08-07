@@ -16,13 +16,14 @@ export default {
     mounted() {
         const {$page: {path, title}, $site: {pages}} = this;
         const regex = new RegExp(path);
-        this.thisPages = pages.filter(item => regex.test(item.path) && item.path !== path);
+        const readMeRegex=new RegExp('README')
+        this.thisPages = pages.filter(item => regex.test(item.path) &&!readMeRegex.test(item.relativePath));
         const data = {
             id: title,
             children: []
         }
         this.thisPages.forEach((page, key) => {
-            const children = page.headers.reduce((acc, item, index) => {
+            const children =page.headers? page.headers.reduce((acc, item, index) => {
                 if (item.level === 2) {
                     acc.push({
                         id: item.title,
@@ -34,7 +35,7 @@ export default {
                     })
                 }
                 return acc;
-            }, [])
+            }, []):[]
             data.children.push({
                 id: page.title,
                 children

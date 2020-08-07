@@ -6,9 +6,6 @@
     "common-data-structure": {
         "title": "常见数据结构",
         "linked-list": "链表",
-        "graph": "图",
-        "queue": "队列",
-        "stack": "栈",
-        "tree": "树"
+        "array": "数组"
     }
 }
