@@ -59,6 +59,25 @@ a[i]_address = base_address + （i-1）* data_type_size
 - 数组支持随机访问，根据下标随机访问的时间复杂度是O(1)；链表适合插入、删除操作，时间复杂度为O(1）。
 
 ## 实现
+```js
+class element{
+    constructor(value,index){
+        this.index=index
+        this.value=value
+    }
+}
+class _Array{
+    constructor(size){
+        this.size=size;
+    }
+    //增加
+    append(value){
+        const ele=new element(value);
+
+    }
+}
+
+```
 ## 相关问题
 ### 实现一个支持动态扩容的数组
 ### 实现一个大小固定的有序数组，支持动态增删改操作
