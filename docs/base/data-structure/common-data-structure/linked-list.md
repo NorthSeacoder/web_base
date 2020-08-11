@@ -69,18 +69,45 @@ CPU在从内存读取数据的时候，会先把读取到的数据加载到CPU�
 ```js
 //链表节点
 class Node {
-    constructor(element){
-        this.element=element;
+    constructor(value){
+        this.value=value;
         this.next=null
     }
 }
 
 class LinkedList {
-    constructor(){
-        this.head=null;
-        this.length=0
+    constructor(value){
+        this.head=new Node(value);
+    }
+    //末尾新增
+    append(value){
+        const newNode=new Node(value);
+        let cur=this.head;
+
+        while(cur.next){
+            cur=cur.next
+        }
+        cur.next=newNode
+    },
+    //展示所有节点
+    display(){
+        const res=[];
+        let cur=this.head;
+        while(cur.next){
+            res.push(cur.value);
+            cur=cur.next
+        }
+        return res.join('=>')
     }
 }
+
+//test
+const list=new LinkedList('head');
+list.append('test1')
+list.append('test2')
+list.append('test3')
+list.append('test4')
+console.log(list.display())
 ```
 
 ## 相关问题(206，141，21，19，876)
