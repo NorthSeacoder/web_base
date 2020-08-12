@@ -132,6 +132,8 @@ class LinkedList {
         const target =this.queryByIndex(index);
         target.value=newValue
     }
+    //查找前一个
+    
     //按值删除
     deleteByValue(value){
         let cur =this.head;
