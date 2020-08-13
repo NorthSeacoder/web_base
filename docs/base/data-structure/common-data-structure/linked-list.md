@@ -133,7 +133,16 @@ class LinkedList {
         target.value=newValue
     }
     //查找前一个
-    
+     findPrev (item) {
+        let cur = this.head
+        while (cur.next !== null && cur.next.element !== item) {
+        cur = cur.next
+        }
+        if (cur.next === null) {
+        return null
+        }
+        return cur
+    }
     //按值删除
     deleteByValue(value){
         let cur =this.head;
