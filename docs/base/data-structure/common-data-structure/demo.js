@@ -13,29 +13,33 @@ class LinkedList {
     //按值查询
     queryByValue(value) {
         let cur = this.head;
-        while (cur.next) {
-            if (cur.value === value) return cur;
+        while (cur && cur.value !== value) {
             cur = cur.next;
         }
-        return null;
+        return cur;
     }
     //按index查询(从0开始,0=>head)
     queryByIndex(index) {
         let cur = this.head;
-        for (let i = index; i > 0; i--) {
-            if (cur && cur.next) {
-                cur = cur.next;
-            } else {
-                cur = null;
-            }
+        let sum = 0;
+        while (cur && sum !== index) {
+            cur = cur.next;
+            sum++;
         }
+        // for (let i = index; i > 0; i--) {
+        //     if (cur && cur.next) {
+        //         cur = cur.next;
+        //     } else {
+        //         cur = null;
+        //     }
+        // }
         return cur;
     }
     //获取node个数
     length() {
         let cur = this.head,
-            num = 1;
-        while (cur.next) {
+            num = 0;
+        while (cur) {
             num++;
             cur = cur.next;
         }
@@ -51,33 +55,51 @@ class LinkedList {
         }
         cur.next = newNode;
     }
+    //指定元素(值)后插入
+    insert(value, target) {
+        const newNode = new Node(value);
+        const targetNode = this.queryByValue(target);
+        if (targetNode) {
+            newNode.next = targetNode.next;
+            targetNode.next = newNode;
+        }
+    }
     //展示所有节点
     display() {
         const res = [];
         let cur = this.head;
-        while (cur.next) {
+        while (cur) {
             res.push(cur.value);
             cur = cur.next;
         }
         return res.join('=>');
     }
     //按值修改
-    updateByValue(value,newValue){
-        const target =this.queryByValue(value);
-        target.value=newValue
+    updateByValue(value, newValue) {
+        const target = this.queryByValue(value);
+        target.value = newValue;
     }
     //按index修改
-    updateByIndex(index,newValue){
-        const target =this.queryByIndex(index);
-        target.value=newValue
+    updateByIndex(index, newValue) {
+        const target = this.queryByIndex(index);
+        target.value = newValue;
+    }
+    //查找前一个
+    findPrev(item) {
+        let cur = this.head;
+        while (cur.next !== null && cur.next.value !== item) {
+            cur = cur.next;
+        }
+        if (cur.next === null) {
+            return null;
+        }
+        return cur;
     }
     //按值删除
-    deleteByValue(value){
-        let cur =this.head;
-        while(cur.next){
-            if(cur.next.value===value){
-                cur.next=cur.next.next
-            }
+    deleteByValue(value) {
+        let pre = this.findPrev(value);
+        if (pre) {
+            pre.next = pre.next.next;
         }
     }
 }
@@ -88,5 +110,6 @@ list.append('test1');
 list.append('test2');
 list.append('test3');
 list.append('test4');
-list.deleteByValue('test1')
+list.append('test5');
+list.insert('test5-1','test5')
 console.log(list.display());
