@@ -11,17 +11,50 @@ class LinkedList {
         this.head = new Node('head');
     }
     //增
-    append(){}
+    append(value){
+        const newNode = new Node(value);
+        newNode.next=this.head;
+        let cur = this.head;
+        while (cur.next&&cur.next.value!=='head') {
+            cur = cur.next;
+        }
+        cur.next = newNode;
+    }
+    //查找前一个
+    findPrev(value) {
+        let cur = this.head.next;
+        while (cur.next !== null && cur.next.value !== value) {
+            cur = cur.next;
+        }
+        if (cur.next.value === 'head') {
+            return null;
+        }
+        return cur;
+    }
     //删
-    delete(){}
+    deleteByValue(value){
+        let pre = this.findPrev(value);
+        if (pre) {
+            pre.next = pre.next.next;
+        }
+    }
     //改
-    update(){}
+    update(value,newValue){
+        const target = this.queryByValue(value);
+        target.value = newValue;
+    }
     //查
-    query(){}
+    queryByValue(value){
+        let cur = this.head.next;
+        while (cur && cur.value !== value) {
+            cur = cur.next;
+        }
+        return cur;
+    }
     //获取所有
     display() {
         const res = [];
-        let cur = this.head;
+        let cur = this.head.next;
         while (cur&&cur.value!=='head') {
             res.push(cur.value);
             cur = cur.next;
@@ -37,5 +70,5 @@ list.append('test2');
 list.append('test3');
 list.append('test4');
 list.append('test5');
-list.insert('test5-1','test5')
+list.update('test1','test11')
 console.log(list.display());
