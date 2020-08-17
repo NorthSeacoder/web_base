@@ -2,6 +2,8 @@
 
 ## 本章思维导图
 
-<goal/>
+<ClientOnly>
+  <goal/>
+</ClientOnly>
 
 ## 本章目标 
