@@ -17,7 +17,7 @@ const getSingleConfig = (name, config, filePath) => {
 const getChildren = (name, map, files) => {
     const target = [`${name}/`, '本章目标'];
     const others = files
-        .filter((item) => item !== 'README.md'||item!=='demo.js')
+        .filter((item) => !['README.md','demo.js'].includes(item) )
         .map((file) => {
             const fileName = file.split('.')[0];
             return [`${name}/${fileName}`, map[fileName]];

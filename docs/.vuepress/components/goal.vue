@@ -4,7 +4,6 @@
 </template>
 
 <script>
-import G6 from '@antv/g6';
 
 export default {
     data() {
@@ -14,41 +13,46 @@ export default {
         }
     },
     mounted() {
-        const {$page: {path, title}, $site: {pages}} = this;
-        const regex = new RegExp(path);
-        const readMeRegex=new RegExp('README')
-        this.thisPages = pages.filter(item => regex.test(item.path) &&!readMeRegex.test(item.relativePath));
-        const data = {
-            id: title,
-            children: []
-        }
-        this.thisPages.forEach((page, key) => {
-            const children =page.headers? page.headers.reduce((acc, item, index) => {
-                if (item.level === 2) {
-                    acc.push({
-                        id: item.title,
-                        children: []
-                    })
-                } else {
-                    acc[acc.length - 1].children.push({
-                        id: item.title,
-                    })
-                }
-                return acc;
-            }, []):[]
-            data.children.push({
-                id: page.title,
-                children
+        import('@antv/g6').then(G6 => {
+            const {$page: {path, title}, $site: {pages}} = this;
+            const regex = new RegExp(path);
+            const readMeRegex = new RegExp('README')
+            this.thisPages = pages.filter(item => regex.test(item.path) && !readMeRegex.test(item.relativePath));
+            const data = {
+                id: title,
+                children: []
+            }
+            this.thisPages.forEach((page, key) => {
+                const children = page.headers ? page.headers.reduce((acc, item, index) => {
+                    if (item.level === 2) {
+                        acc.push({
+                            id: item.title,
+                            children: []
+                        })
+                    } else {
+                        acc[acc.length - 1].children.push({
+                            id: item.title,
+                        })
+                    }
+                    return acc;
+                }, []) : []
+                
+                data.children.push({
+                    id: page.title,
+                    children
+                })
             })
+
+            this.$set(this, 'data', data);
+            this.G6Render(data,G6)
         })
 
-        this.$set(this, 'data', data);
-        this.G6Render(data)
 
     },
     methods: {
-        G6Render(data) {
-            const width = document.getElementById('mindGraph').scrollWidth||800;
+        G6Render(data,G6) {
+
+            const width = document.getElementById('mindGraph').scrollWidth || 800;
             const height = document.getElementById('mindGraph').scrollHeight || 600;
             const graph = new G6.TreeGraph({
                 container: 'mindGraph',
