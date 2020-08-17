@@ -69,6 +69,14 @@ CPU 在从内存读取数据的时候，会先把读取到的数据加载到 CPU
 
 ## 实现
 
+
+
+## 相关问题(206，141，21，19，876)
+
+### 实现单链表、循环链表、双向链表，支持增删改查
+
+#### 单链表
+
 ```js
 //链表节点
 class Node {
@@ -185,9 +193,131 @@ list.append('test4')
 console.log(list.display())
 ```
 
-## 相关问题(206，141，21，19，876)
+#### 循环链表
+```js
+//链表节点
+class Node {
+    constructor(value){
+        this.value=value;
+        this.next=null
+    }
+}
+//循环链表
+class LinkedList {
+    constructor() {
+        this.head = new Node('head');
+    }
+    //增
+    append(value){
+        const newNode = new Node(value);
+        newNode.next=this.head;
+        let cur = this.head;
+        while (cur.next&&cur.next.value!=='head') {
+            cur = cur.next;
+        }
+        cur.next = newNode;
+    }
+    //查找前一个
+    findPrev(value) {
+        let cur = this.head.next;
+        while (cur.next !== null && cur.next.value !== value) {
+            cur = cur.next;
+        }
+        if (cur.next.value === 'head') {
+            return null;
+        }
+        return cur;
+    }
+    //删
+    deleteByValue(value){
+        let pre = this.findPrev(value);
+        if (pre) {
+            pre.next = pre.next.next;
+        }
+    }
+    //改
+    update(value,newValue){
+        const target = this.queryByValue(value);
+        target.value = newValue;
+    }
+    //查
+    queryByValue(value){
+        let cur = this.head.next;
+        while (cur && cur.value !== value) {
+            cur = cur.next;
+        }
+        return cur;
+    }
+    //获取所有
+    display() {
+        const res = [];
+        let cur = this.head.next;
+        while (cur&&cur.value!=='head') {
+            res.push(cur.value);
+            cur = cur.next;
+        }
+        return res.join('=>');
+    }
+}
+```
 
-### 实现单链表、循环链表、双向链表，支持增删改查
+#### 双向链表
+
+```js
+
+class Node {
+    constructor(value) {
+        this.value = value;
+        this.next = null;
+        this.pre = null;
+    }
+}
+
+class LinkedList {
+    constructor() {
+        this.head = new Node('head');
+    }
+    //增
+    append(value) {
+        const newNode = new Node(value);
+        let cur = this.head;
+        while (cur && cur.next) {
+            cur = cur.next;
+        }
+        cur.next = newNode;
+        newNode.pre = cur;
+    }
+    //删
+    deleteByValue(value) {
+        let cur = this.queryByValue(value);
+        cur.pre.next = cur.next;
+    }
+    //改
+    update(value, newValue) {
+        const target = this.queryByValue(value);
+        target.value = newValue;
+    }
+    //查
+    queryByValue(value) {
+        let cur = this.head.next;
+        while (cur && cur.value !== value) {
+            cur = cur.next;
+        }
+        return cur;
+    }
+    //获取所有
+    display() {
+        const res = [];
+        let cur = this.head.next;
+        while (cur) {
+            res.push(cur.value);
+            cur = cur.next;
+        }
+        return res.join('=>');
+    }
+}
+```
+
 
 ### 实现单链表反转
 
