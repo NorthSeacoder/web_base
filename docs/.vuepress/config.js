@@ -52,6 +52,16 @@ module.exports = {
                     // {text: '计算机组成原理', link: '/base/computer-organization/'}
                 ],
             },
+            {
+                text: '翻译计划',
+                ariaLabel: 'Language Menu',
+                items: [
+                    {text: '30秒代码', link: '/translate/30secondsofcode/'},
+                    // {text: '操作系统', link: '/base/operating-system/'},
+                    // {text: '计算机网络', link: '/base/computer-networks/'},
+                    // {text: '计算机组成原理', link: '/base/computer-organization/'}
+                ],
+            },
             {text: 'Github', link: 'https://github.com/NorthSeacoder'},
         ],
         sidebar: {
