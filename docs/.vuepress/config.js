@@ -68,6 +68,9 @@ module.exports = {
             '/base/data-structure/': getSidebarConfig('./base/data-structure/'),
 
             '/note/data-structure/': getSidebarConfig('./note/data-structure/'),
+
+            '/translate/30secondsofcode/': getSidebarConfig('./translate/30secondsofcode/'),
+
             '/base/computer-networks/': [
                 {
                     title: '计算机网络',
