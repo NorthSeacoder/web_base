@@ -60,8 +60,41 @@ console.log(itr.next())//{ value: 'First' }
 
 > On a related note, iterators are just functions, meaning they can be called like any other function (e.g. to delegate the iteration to an existing iterator), while also not being restricted to the Symbol.iterator name, allowing us to define multiple iterators for the same object. Here's an example of these concepts at play:
 
-```js
+在相关说明中，迭代器只是函数，这意味着它们可以像其他函数一样被调用（例如，给迭代赋值一个现有的迭代器），同时也不受限于Symbol.iterator名称，我们可以为同一对象定义多个迭代器：
 
+```js
+class SpecialList {
+  constructor(data) {
+    this.data = data;
+  }
+    //默认迭代器-引用data数组的迭代器
+  [Symbol.iterator]() {
+    return this.data[Symbol.iterator]();
+  }
+//具名迭代器
+  values() {
+    return this.data
+      .filter(i => i.complete)
+      .map(i => i.value)
+      [Symbol.iterator]();
+  }
+}
+
+const myList = new SpecialList([
+  {complete: true, value: 'Lorem ipsum'},
+  {complete: true, value: 'dolor sit amet'},
+  {complete: false},
+  {complete: true, value: 'adipiscing elit'}
+]);
+
+for(let item of myList) {
+  console.log(item);  // The exact data passed to the SpecialList constructor above
+}
+
+for(let item of myList.values()) {
+  console.log(item);  // 'Lorem ipsum', 'dolor sit amet', 'adipiscing elit'
+}
 ```
 
 >In this example, we use the native array iterator of the data object to make our SpecialList iterable, returning the exact values of the data array. Meanwhile, we also define a values method, which is an iterator itself, using Array.prototype.filter() and Array.prototype.map() on the data array, then finally returning the Symbol.iterator of the result, allowing iteration only over non-empty objects in the sequence and returning just the value for each one.
+在这个示例中，我们使用data对象自身的数组迭代器令SpecialList支持迭代，返回了了数组的值。同时，我们也通过数组的map和filter方法定义了一个values函数（本身也是个迭代器），返回值是结果数组的迭代器函数，迭代结果是序列中complete为true并且只返回value
