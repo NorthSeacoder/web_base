@@ -137,12 +137,12 @@ const getDocsName = () => {
                 value: 'new',
             },
         ]);
-}
+};
 
 function getDemoActions(data) {
-    const actions=[];
-    const {type,noteName,typeName,chapterName}=data;
-    if(type==='new'){
+    const actions = [];
+    const {type, noteName, typeName, chapterName} = data;
+    if (type === 'new') {
         actions.push([
             {
                 type: 'add',
@@ -151,7 +151,16 @@ function getDemoActions(data) {
                 data: {
                     typeName,
                     noteName,
-                    chapterName
+                    chapterName,
+                },
+            },
+            {
+                type: 'add',
+                path: `docs/${typeName}/${noteName}/config.json`,
+                templateFile: 'plop-templates/note/hbs/readme.hbs',
+                data: {
+                    noteName,
+                    chapterName,
                 },
             },
             {
@@ -164,16 +173,15 @@ function getDemoActions(data) {
             },
             {
                 type: 'add',
-                path: `docs/${typeName}/${noteName}/config.json`,
-                templateFile: 'plop-templates/note/hbs/readme.hbs',
+                path: `docs/${typeName}/${noteName}/${chapterName}/README.md`,
+                templateFile: 'plop-templates/note/hbs/note-readme.hbs',
                 data: {
                     noteName,
-                    chapterName
                 },
             },
-        ])
+        ]);
     }
-    return actions
+    return actions;
 }
 console.log(getDocsName());
 exports.getDocsName = getDocsName;
