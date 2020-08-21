@@ -8,7 +8,7 @@
     "build": "vuepress build docs",
     "deploy": "vuepress build docs&&gh-pages -d docs/.vuepress/dist -b docs",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "new": "plop note"
+    "new": "plop"
   },
   "repository": {
     "type": "git",

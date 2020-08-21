@@ -1,4 +1,3 @@
-# 整体目录
 <ClientOnly>
   <goal/>
 </ClientOnly>

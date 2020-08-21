@@ -9,7 +9,13 @@ exports.notEmpty = (name) => {
         return true;
     };
 };
-
+exports.isExist = (name) => {
+    return (v) => {
+        if (!v || v.trim === '') return `${name} 必须填写`;
+        if (getDocsName().some(({name}) => name === v)) return `${name} 不能重复`;
+        return true;
+    };
+};
 // 下划线转换驼峰
 function camelCase(name) {
     return name
@@ -125,8 +131,18 @@ function getNewTestActions(data) {
         },
     ];
 }
-const getDocsName = () => {
-    const docsPath = path.resolve(__dirname, '../docs');
+
+const data = {
+    type: 'base',
+    noteName: '',
+    chapterName: 'base',
+};
+console.log(path.resolve(__dirname, '../docs', data.type, data.noteName));
+
+const getDocsName = (v) => {
+    const {type = '', noteName = '', chapterName = ''} = v;
+
+    const docsPath = path.resolve(__dirname, '../docs', type, noteName, chapterName);
     const files = fs.readdirSync(docsPath);
     return files
         .filter((name) => !name.includes('.'))
@@ -139,55 +155,159 @@ const getDocsName = () => {
         ]);
 };
 
-function getDemoActions(data) {
+function getChapterAction({typeName, noteName, chapterName}) {
+    //新增 chapter-readme
+    //修改 config.json - 新增章节
+    return [
+        {
+            type: 'add',
+            path: `docs/${typeName}/${noteName}/${chapterName}/README.md`,
+            templateFile: 'plop-templates/note/hbs/chapter/readme.hbs',
+            data: {
+                chapterName,
+            },
+        },
+        {
+            type: 'modify',
+            path: `docs/${typeName}/${noteName}/config.json`,
+            pattern: new RegExp('"plop-temp":""'),
+            templateFile: 'plop-templates/note/hbs/chapter/config.hbs',
+            data: {
+                chapterName,
+            },
+        },
+    ];
+}
+function getNoteActions({typeName, noteName}) {
+    //新增 note-readme
+    //建立 config.json
+    //修改 sidebar - 增加新的侧边栏
+    //修改 nav - 增加 item
+    return [
+        {
+            type: 'add',
+            path: `docs/${typeName}/${noteName}/README.md`,
+            templateFile: 'plop-templates/note/hbs/note/readme.hbs',
+            data: {
+                noteName,
+            },
+        },
+        {
+            type: 'add',
+            path: `docs/${typeName}/${noteName}/config.json`,
+            templateFile: 'plop-templates/note/hbs/note/config.hbs',
+        },
+        {
+            type: 'modify',
+            path: 'docs/.vuepress/config.js',
+            pattern: new RegExp(`//sidebar`),
+            templateFile: 'plop-templates/note/hbs/note/sidebar.hbs',
+            data: {
+                typeName,
+                noteName,
+            },
+        },
+        {
+            type: 'modify',
+            path: 'docs/.vuepress/config.js',
+            pattern: new RegExp(`//${typeName}`),
+            templateFile: 'plop-templates/note/hbs/note/nav.hbs',
+            data: {
+                typeName,
+                noteName,
+            },
+        },
+    ];
+}
+function getTypeActions({typeName}) {
+    //修改 config.js 新增 nav
+    return [
+        {
+            type: 'modify',
+            path: 'docs/.vuepress/config.js',
+            pattern: new RegExp(`//type`),
+            templateFile: 'plop-templates/note/hbs/type/type.hbs',
+            data: {
+                typeName,
+            },
+        },
+    ];
+}
+exports.test = (data) => {
+    const actions = [];
+    const {noteName, typeName, chapterName} = data;
+    actions.push(...getTypeActions({typeName}));
+    actions.push(...getNoteActions({typeName, noteName}));
+    actions.push(...getChapterAction({typeName, noteName, chapterName}));
+    return actions;
+};
+
+function getnewNote(data) {
+    const {type, noteName, typeName, chapterName} = data;
+    return [
+        {
+            type: 'add',
+            path: `docs/${typeName}/${noteName}/README.md`,
+            templateFile: 'plop-templates/note/hbs/note-readme.hbs',
+            data: {
+                typeName,
+                noteName,
+            },
+        },
+        {
+            type: 'add',
+            path: `docs/${typeName}/${noteName}/config.json`,
+            templateFile: 'plop-templates/note/hbs/config.hbs',
+            data: {
+                noteName,
+                chapterName,
+            },
+        },
+        {
+            type: 'add',
+            path: `docs/${typeName}/${noteName}/${chapterName}/README.md`,
+            templateFile: 'plop-templates/note/hbs/chapter-readme.hbs',
+            data: {
+                noteName,
+            },
+        },
+        {
+            type: 'modify',
+            path: 'docs/.vuepress/config.js',
+            pattern: new RegExp(`//type`),
+            templateFile: 'plop-templates/note/hbs/type.hbs',
+            data: {
+                typeName,
+                noteName,
+            },
+        },
+        {
+            type: 'modify',
+            path: 'docs/.vuepress/config.js',
+            pattern: new RegExp(`//sidebar`),
+            templateFile: 'plop-templates/note/hbs/sidebar.hbs',
+            data: {
+                typeName,
+                noteName,
+            },
+        },
+    ];
+}
+function getActions(data) {
     const actions = [];
     const {type, noteName, typeName, chapterName} = data;
     if (type === 'new') {
-        actions.push([
-            {
-                type: 'add',
-                path: `docs/${typeName}/${noteName}/README.md`,
-                templateFile: 'plop-templates/note/hbs/note-readme.hbs',
-                data: {
-                    typeName,
-                    noteName,
-                    chapterName,
-                },
-            },
-            {
-                type: 'add',
-                path: `docs/${typeName}/${noteName}/config.json`,
-                templateFile: 'plop-templates/note/hbs/readme.hbs',
-                data: {
-                    noteName,
-                    chapterName,
-                },
-            },
-            {
-                type: 'add',
-                path: `docs/${typeName}/${noteName}/${chapterName}/README.md`,
-                templateFile: 'plop-templates/note/hbs/note-readme.hbs',
-                data: {
-                    noteName,
-                },
-            },
-            {
-                type: 'add',
-                path: `docs/${typeName}/${noteName}/${chapterName}/README.md`,
-                templateFile: 'plop-templates/note/hbs/note-readme.hbs',
-                data: {
-                    noteName,
-                },
-            },
-        ]);
+        actions.push(...getnewNote(data));
+    } else {
+        actions.push({});
     }
     return actions;
 }
-console.log(getDocsName());
 exports.getDocsName = getDocsName;
+exports.getActions = getActions;
+
 exports.getNewMdActions = getNewMdActions;
 exports.getNewSrcActions = getNewSrcActions;
 exports.getNewTestActions = getNewTestActions;
-exports.getDemoActions = getDemoActions;
 exports.camelCase = camelCase;
 exports.kebabCase = kebabCase;
