@@ -1,0 +1,15 @@
+import { createTest, createVue, destroyVM } from '../util';
+import {{componentName}} from '{{type}}/{{kebabName}}';
+
+describe('{{kebabName}}', () => {
+    let vm;
+    afterEach(() => {
+      destroyVM(vm);
+    });
+
+    it('create', () => {
+      vm = createTest({{componentName}}, {}, true);
+      let Elm = vm.$el;
+      expect(Elm.classList.contains('{{kebabName}}')).to.be.true;
+    });
+})

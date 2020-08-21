@@ -7,7 +7,8 @@
     "start": "vuepress dev docs",
     "build": "vuepress build docs",
     "deploy": "vuepress build docs&&gh-pages -d docs/.vuepress/dist -b docs",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "new": "plop note"
   },
   "repository": {
     "type": "git",
@@ -27,6 +28,7 @@
     "direction-reveal": "^1.3.4",
     "gh-pages": "^2.2.0",
     "less-loader": "^6.1.1",
+    "plop": "^2.7.4",
     "vuepress": "^1.4.0",
     "vuepress-plugin-live": "^1.5.3"
   },
