@@ -1,4 +1,4 @@
-const {isExist, notEmpty, getActions, getDocsName} = require('../utils.js');
+const {isExist, notEmpty, getActions, getDocsName} = require('./utils.js');
 
 module.exports = {
     description: 'generate web_base template',
@@ -16,6 +16,7 @@ module.exports = {
             validate: isExist('类型'),
             when: ({type}) => type === 'new',
         },
+
         {
             type: 'list',
             name: 'note',
@@ -30,12 +31,13 @@ module.exports = {
             validate: notEmpty('笔记名称'),
             when: ({type, note}) => type === 'new' || note === 'new',
         },
+
         {
             type: 'list',
             name: 'chapter',
             message: '请选择章节名称',
             choices: getDocsName,
-            when: ({type}) => type !== 'new' && note !== 'new',
+            when: ({type,note}) => type !== 'new' && note !== 'new',
         },
         {
             type: 'input',
@@ -47,7 +49,8 @@ module.exports = {
         },
     ],
     actions: (data) => {
-        const noteActions = getActions(data);
-        return [...noteActions];
+        // console.log(data)
+        // const noteActions = test(data);
+        return getActions(data)
     },
 };

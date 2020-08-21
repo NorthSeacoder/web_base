@@ -2,5 +2,8 @@
     "plop": {
         "title": "plop"
     },
+        "comment": {
+        "title": "comment"
+    },
     "plop-temp":""
 }
