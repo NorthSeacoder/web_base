@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "commit": "git-cz",
     "start": "vuepress dev docs",
     "build": "vuepress build docs",
     "deploy": "vuepress build docs&&gh-pages -d docs/.vuepress/dist -b docs",
@@ -25,6 +26,7 @@
   },
   "homepage": "https://github.com/NorthSeacoder/web_base_data_structure#readme",
   "devDependencies": {
+    "commitizen": "^4.1.5",
     "direction-reveal": "^1.3.4",
     "gh-pages": "^2.2.0",
     "less-loader": "^6.1.1",
@@ -35,7 +37,13 @@
   "dependencies": {
     "@antv/g6": "^3.6.0",
     "echarts": "^4.8.0",
+    "n-cz": "file:../nsea/n-cz",
     "node-sass": "^4.14.1",
     "sass-loader": "^9.0.2"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/n-cz"
+    }
   }
 }
