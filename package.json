@@ -36,14 +36,14 @@
   },
   "dependencies": {
     "@antv/g6": "^3.6.0",
+    "@nsea/cz": "0.0.1",
     "echarts": "^4.8.0",
-    "n-cz": "file:../nsea/n-cz",
     "node-sass": "^4.14.1",
     "sass-loader": "^9.0.2"
   },
   "config": {
     "commitizen": {
-      "path": "./node_modules/n-cz"
+      "path": "./node_modules/@nsea/cz"
     }
   }
 }

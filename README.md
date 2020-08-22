@@ -20,3 +20,7 @@
     -   为了脑图正常生成,笔记内标题均不能相同
 -   每章填写 README.md 本章目标及本章脑图,引入 goal 组件
 -   除 README 以外文件名全小写
+
+## 提交
+
+- 增加commitizen规范化提交信息,执行npm run commit 提交

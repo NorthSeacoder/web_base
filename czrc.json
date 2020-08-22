@@ -1,14 +1,3 @@
 {
-    "types":{
-        "feat": {
-            "description":"A new feature",
-            "title": "Features"
-        },
-        "fix": {
-            "description": "A bug fix",
-            "title": "Bug Fixes"
-        }
-    },
-    "defaultType":"feat",
     "defaultScope":"web_base"
 }
