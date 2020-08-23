@@ -5,5 +5,9 @@
         "comment": {
         "title": "comment"
     },
+        "@nsea": {
+        "title": "@nsea",
+        "cz":"commitizen 插件@nsea/cz"
+    },
     "plop-temp":""
 }

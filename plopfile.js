@@ -1,4 +1,4 @@
-const note = require("./plop-templates/note/prompt");
+const note = require("./plop-templates/prompt");
 
 module.exports = plop => {
 
