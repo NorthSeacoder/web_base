@@ -1,0 +1,7 @@
+{
+        "centos-server": {
+        "title": "centos-server",
+        "init":"空服务器配置"
+    },
+    "plop-temp":""
+}
