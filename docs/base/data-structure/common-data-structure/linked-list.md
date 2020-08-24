@@ -343,26 +343,40 @@ reverse0() {
 ```
 
 ### 链表中环的检测(141)
+
 ```js
 //哈希表
 //标记
 //双指针
-const hasCycle=head=>{
-if (!head || !head.next) return false;
+const hasCycle = (head) => {
+    if (!head || !head.next) return false;
     let slow = head,
         fast = head;
     while (fast) {
         if (!fast.next) return false;
         slow = slow.next;
         fast = fast.next && fast.next.next;
-        if(slow==fast) return true
+        if (slow == fast) return true;
     }
     return false;
-}
-
+};
 ```
 
-### 实现两个有序的链表合并为一个有序链表
+### 实现两个有序的链表合并为一个有序链表(21)
+
+```js
+const mergeTwoLists = (l1, l2) => {
+    if (l1 === null) return l2;
+    if (l2 === null) return l1;
+    if (l1.val < l2.val) {
+        l1.next = mergeTwoLists(l1.next, l2);
+        return l1;
+    } else {
+        l2.next = mergeTwoLists(l1, l2.next);
+        return l2;
+    }
+};
+```
 
 ### 删除链表倒数第 n 个点
 
