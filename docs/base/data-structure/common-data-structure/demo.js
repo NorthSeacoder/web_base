@@ -3,6 +3,15 @@ class Node {
         this.value = value;
         this.next = null;
     }
+    // display() {
+    //     const res = [];
+    //     let cur = this;
+    //     while (cur) {
+    //         res.push(cur.value);
+    //         cur = cur.next;
+    //     }
+    //     return res.join('=>');
+    // }
 }
 //单链表
 class LinkedList {
@@ -101,10 +110,28 @@ class LinkedList {
             pre.next = pre.next.next;
         }
     }
-
-    reverse(){
-        
+    appendNode(newNode) {
+        let cur = this.head;
+        while (cur.next) {
+            cur = cur.next;
+        }
+        cur.next = newNode;
     }
+    reverse0() {
+        let newList = new LinkedList();
+        let pre = null;
+        let cur = this.head.next;
+        while (cur) {
+            // let tem = cur.next;//首先用一个变量缓存原指针的下一个节点
+            // cur.next = pre;//然后将原指针的指向反转
+            // pre = cur;//赋值给pre指针
+            // cur = tem;//最后将缓存的变量赋值给原指针
+            [cur.next, pre, cur] = [pre, cur, cur.next];
+        }
+        newList.appendNode(pre);
+        return newList;
+    }
+    
 }
 
 //test
@@ -114,5 +141,4 @@ list.append('test2');
 list.append('test3');
 list.append('test4');
 list.append('test5');
-list.reverse();
-console.log(list.display());
+console.log(list.reverse0().display());

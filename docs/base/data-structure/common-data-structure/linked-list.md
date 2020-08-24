@@ -69,8 +69,6 @@ CPU 在从内存读取数据的时候，会先把读取到的数据加载到 CPU
 
 ## 链表实现
 
-
-
 ## 相关问题(206，141，21，19，876)
 
 ### 实现单链表、循环链表、双向链表，支持增删改查
@@ -80,9 +78,9 @@ CPU 在从内存读取数据的时候，会先把读取到的数据加载到 CPU
 ```js
 //链表节点
 class Node {
-    constructor(value){
-        this.value=value;
-        this.next=null
+    constructor(value) {
+        this.value = value;
+        this.next = null;
     }
 }
 //单链表
@@ -185,21 +183,22 @@ class LinkedList {
 }
 
 //test
-const list=new LinkedList('head');
-list.append('test1')
-list.append('test2')
-list.append('test3')
-list.append('test4')
-console.log(list.display())
+const list = new LinkedList('head');
+list.append('test1');
+list.append('test2');
+list.append('test3');
+list.append('test4');
+console.log(list.display());
 ```
 
 #### 循环链表实现
+
 ```js
 //链表节点
 class Node {
-    constructor(value){
-        this.value=value;
-        this.next=null
+    constructor(value) {
+        this.value = value;
+        this.next = null;
     }
 }
 //循环链表
@@ -208,11 +207,11 @@ class LinkedList {
         this.head = new Node('head');
     }
     //增
-    append(value){
+    append(value) {
         const newNode = new Node(value);
-        newNode.next=this.head;
+        newNode.next = this.head;
         let cur = this.head;
-        while (cur.next&&cur.next.value!=='head') {
+        while (cur.next && cur.next.value !== 'head') {
             cur = cur.next;
         }
         cur.next = newNode;
@@ -229,19 +228,19 @@ class LinkedList {
         return cur;
     }
     //删
-    deleteByValue(value){
+    deleteByValue(value) {
         let pre = this.findPrev(value);
         if (pre) {
             pre.next = pre.next.next;
         }
     }
     //改
-    update(value,newValue){
+    update(value, newValue) {
         const target = this.queryByValue(value);
         target.value = newValue;
     }
     //查
-    queryByValue(value){
+    queryByValue(value) {
         let cur = this.head.next;
         while (cur && cur.value !== value) {
             cur = cur.next;
@@ -252,7 +251,7 @@ class LinkedList {
     display() {
         const res = [];
         let cur = this.head.next;
-        while (cur&&cur.value!=='head') {
+        while (cur && cur.value !== 'head') {
             res.push(cur.value);
             cur = cur.next;
         }
@@ -264,7 +263,6 @@ class LinkedList {
 #### 双向链表实现
 
 ```js
-
 class Node {
     constructor(value) {
         this.value = value;
@@ -318,10 +316,51 @@ class LinkedList {
 }
 ```
 
+### 实现单链表反转(206)
 
-### 实现单链表反转
+```js
+appendNode(newNode) {
+        let cur = this.head;
+        while (cur.next) {
+            cur = cur.next;
+        }
+        cur.next = newNode;
+    }
+reverse0() {
+        let newList = new LinkedList();
+        let pre = null;
+        let cur = this.head.next;
+        while (cur) {
+            // let tem = cur.next;//首先用一个变量缓存原指针的下一个节点
+            // cur.next = pre;//然后将原指针的指向反转
+            // pre = cur;//赋值给pre指针
+            // cur = tem;//最后将缓存的变量赋值给原指针
+            [cur.next, pre, cur] = [pre, cur, cur.next];
+        }
+        newList.appendNode(pre);
+        return newList;
+    }
+```
 
-### 链表中环的检测
+### 链表中环的检测(141)
+```js
+//哈希表
+//标记
+//双指针
+const hasCycle=head=>{
+if (!head || !head.next) return false;
+    let slow = head,
+        fast = head;
+    while (fast) {
+        if (!fast.next) return false;
+        slow = slow.next;
+        fast = fast.next && fast.next.next;
+        if(slow==fast) return true
+    }
+    return false;
+}
+
+```
 
 ### 实现两个有序的链表合并为一个有序链表
 
