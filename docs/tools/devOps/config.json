@@ -1,7 +1,8 @@
 {
         "centos-server": {
         "title": "centos-server",
-        "init":"空服务器配置"
+        "init":"空服务器配置",
+        "ansible":"ansible"
     },
     "plop-temp":""
 }

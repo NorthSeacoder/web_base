@@ -9,9 +9,14 @@ Host nsc
     HostName 172.17.54.190
     User root
     IdentityFile ~/.ssh/id_rsa
+
+Host nsc-ansible
+    HostName 172.17.54.190
+    User ansible
+    IdentityFile ~/.ssh/id_rsa
 ```
 
--   服务器配置~/.ssh/authorized_keys
+-   服务器配置~/.ssh/authorized_keys&/home/ansible/.ssh/authorized_keys
     将本地的公钥拷贝到改文件
 -   登录
 
