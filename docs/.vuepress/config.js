@@ -60,7 +60,6 @@ module.exports = {
                 text: 'tools',
                 items: [
                     {text: 'node', link: '/tools/node/'},
-                    {text: 'devOps', link: '/tools/devOps/'},
                     //tools
                 ],
             },
@@ -77,7 +76,6 @@ module.exports = {
             
             '/tools/node/': getSidebarConfig('./tools/node/'),
             
-            '/tools/devOps/': getSidebarConfig('./tools/devOps/'),
             //sidebar
             
         },
