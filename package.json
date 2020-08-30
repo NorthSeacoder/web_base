@@ -36,7 +36,7 @@
   },
   "dependencies": {
     "@antv/g6": "^3.6.0",
-    "@nsea/cz": "0.0.1",
+    "@nsea/cz": "0.0.2",
     "echarts": "^4.8.0",
     "node-sass": "^4.14.1",
     "sass-loader": "^9.0.2"
