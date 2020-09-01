@@ -378,7 +378,7 @@ const mergeTwoLists = (l1, l2) => {
 };
 ```
 
-### 删除链表倒数第 n 个点
+### 删除链表倒数第 n 个点(19)
 ```js
 var removeNthFromEnd = function(head, n) {
     if(!head||!head.next)return null//空链表或只有一个值,只有一个值的时候,n 只能为 1
@@ -403,8 +403,11 @@ var removeNthFromEnd = function(head, n) {
        
 };
 ```
-### 实现求链表的中间结点
 
+### 实现求链表的中间结点(876)
+```js
+
+```
 ### 约瑟夫问题
 
 ### 链表实现了 LRU 缓存
