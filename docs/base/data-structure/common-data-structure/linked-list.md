@@ -380,7 +380,28 @@ const mergeTwoLists = (l1, l2) => {
 
 ### 删除链表倒数第 n 个点
 ```js
+var removeNthFromEnd = function(head, n) {
+    if(!head||!head.next)return null//空链表或只有一个值,只有一个值的时候,n 只能为 1
 
+    let fast=head,slow=head;
+
+    while(n>0){
+        n--;
+        fast=fast.next
+    }
+
+    if(!fast) return head.next
+
+    while(fast.next){
+        slow=slow.next;
+        fast=fast.next;
+    }
+    //fast = last
+    //slow = next to be deleted
+    slow.next=slow.next.next;
+    return head;
+       
+};
 ```
 ### 实现求链表的中间结点
 
