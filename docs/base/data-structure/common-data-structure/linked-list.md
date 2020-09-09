@@ -227,6 +227,16 @@ class LinkedList {
         }
         return cur;
     }
+    //获取node个数
+    length() {
+        let cur = this.head,
+            num = 0;
+        while (cur && cur.next.value !== 'head') {
+            num++;
+            cur = cur.next;
+        }
+        return num;
+    }
     //删
     deleteByValue(value) {
         let pre = this.findPrev(value);
@@ -406,9 +416,43 @@ var removeNthFromEnd = function(head, n) {
 
 ### 实现求链表的中间结点(876)
 ```js
-
+var middleNode = function (head) {
+    let slow=head,fast=head;
+    while(fast&&fast.next){
+        fast=fast.next.next;
+        slow=slow.next;
+    }
+    return slow
+};
 ```
+
 ### 约瑟夫问题
+```js
+//循环链表
+const josephRing = (n, m) => {
+    const list = new LinkedList();
+    let v = 0;
+    while (v < n) {
+        list.append(v);
+        v++;
+    }
+    let cur = list.head.next;
+    let sum=0
+    while(list.length()>1){
+        cur=cur.next.value==='head'?list.head.next:cur.next
+        sum++
+        if(sum==m){
+            console.log('出局：'+cur.value);
+            list.deleteByValue(cur.value);
+
+            sum=0
+        }
+    }
+
+    console.log(list.display());
+};
+josephRing(1002, 7);
+```
 
 ### 链表实现了 LRU 缓存
 
