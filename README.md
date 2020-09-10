@@ -24,3 +24,14 @@
 ## 提交
 
 - 增加commitizen规范化提交信息,执行npm run commit 提交
+
+## usage
+
+```js
+//dev
+npm start
+
+//新增笔记
+npm run new
+```
+git push 之后会自动调用 github action 部署

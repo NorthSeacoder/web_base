@@ -67,6 +67,60 @@ CPU 在从内存读取数据的时候，会先把读取到的数据加载到 CPU
 对于数组来说，存储空间是连续的，所以在加载某个下标的时候可以把以后的几个下标元素也加载到 CPU 缓存这样执行速度会快于存储空间不连续的链表存储。
 :::
 
+## 缓存策略
+
+-   先进先出策略 FIFO(First In，First Out)
+
+-   最少使用策略 LFU（Least Frequently Used）
+
+-   最近最少使用策略 LRU（Least Recently Used)
+
+## 链表代码注意事项
+
+### 理解指针或引用的含义
+
+-   将某个变量（对象）赋值给指针（引用），实际上就是就是将这个变量（对象）的地址赋值给指针（引用）。
+
+### 警惕指针丢失和内存泄漏（单链表）
+
+-   插入节点
+
+```js
+//在节点a和节点b之间插入节点x，b是a的下一节点，，p指针指向节点a，则造成指针丢失和内存泄漏
+p—>next = x
+x—>next = p—>next
+//显然这会导致x节点的后继指针指向自身。
+//正确写法
+x—>next = p—>next
+p—>next = x;
+```
+
+-   删除节点
+
+```js
+
+//在节点a和节点b之间删除节点b，b是a的下一节点，p指针指向节点a
+p—>next = p—>next—>next;
+
+```
+
+### 利用“哨兵”简化实现难度
+
+-   什么是“哨兵”
+    链表中的“哨兵”节点是解决边界问题的，不参与业务逻辑。如果我们引入“哨兵”节点，则不管链表是否为空，head 指针都会指向这个“哨兵”节点。我们把这种有“哨兵”节点的链表称为带头链表，相反，没有“哨兵”节点的链表就称为不带头链表。
+    本章均为带头链表
+-   哨兵的优势
+    “哨兵”节点不存储数据，无论链表是否为空，head 指针都会指向它，作为链表的头结点始终存在。这样，插入第一个节点和插入其他节点，删除最后一个节点和删除其他节点都可以统一为相同的代码实现逻辑了。
+
+### 重点留意边界条件处理
+
+经常用来检查链表是否正确的边界 4 个边界条件：
+
+1. 如果链表为空时，代码是否能正常工作？
+2. 如果链表只包含一个节点时，代码是否能正常工作？
+3. 如果链表只包含两个节点时，代码是否能正常工作？
+4. 代码逻辑在处理头尾节点时是否能正常工作？
+
 ## 链表实现
 
 ## 相关问题(206，141，21，19，876)
@@ -329,27 +383,17 @@ class LinkedList {
 ### 实现单链表反转(206)
 
 ```js
-appendNode(newNode) {
-        let cur = this.head;
-        while (cur.next) {
-            cur = cur.next;
-        }
-        cur.next = newNode;
+var reverseList = function(head) {
+    let pre = null,
+        cur = head;
+    while (cur) {
+        let tem = cur.next;
+        cur.next = pre;
+        pre = cur;
+        cur = tem;
     }
-reverse0() {
-        let newList = new LinkedList();
-        let pre = null;
-        let cur = this.head.next;
-        while (cur) {
-            // let tem = cur.next;//首先用一个变量缓存原指针的下一个节点
-            // cur.next = pre;//然后将原指针的指向反转
-            // pre = cur;//赋值给pre指针
-            // cur = tem;//最后将缓存的变量赋值给原指针
-            [cur.next, pre, cur] = [pre, cur, cur.next];
-        }
-        newList.appendNode(pre);
-        return newList;
-    }
+    return pre;
+};
 ```
 
 ### 链表中环的检测(141)
@@ -389,44 +433,48 @@ const mergeTwoLists = (l1, l2) => {
 ```
 
 ### 删除链表倒数第 n 个点(19)
+
 ```js
 var removeNthFromEnd = function(head, n) {
-    if(!head||!head.next)return null//空链表或只有一个值,只有一个值的时候,n 只能为 1
+    if (!head || !head.next) return null; //空链表或只有一个值,只有一个值的时候,n 只能为 1
 
-    let fast=head,slow=head;
+    let fast = head,
+        slow = head;
 
-    while(n>0){
+    while (n > 0) {
         n--;
-        fast=fast.next
+        fast = fast.next;
     }
 
-    if(!fast) return head.next
+    if (!fast) return head.next;
 
-    while(fast.next){
-        slow=slow.next;
-        fast=fast.next;
+    while (fast.next) {
+        slow = slow.next;
+        fast = fast.next;
     }
     //fast = last
     //slow = next to be deleted
-    slow.next=slow.next.next;
+    slow.next = slow.next.next;
     return head;
-       
 };
 ```
 
 ### 实现求链表的中间结点(876)
+
 ```js
-var middleNode = function (head) {
-    let slow=head,fast=head;
-    while(fast&&fast.next){
-        fast=fast.next.next;
-        slow=slow.next;
+var middleNode = function(head) {
+    let slow = head,
+        fast = head;
+    while (fast && fast.next) {
+        fast = fast.next.next;
+        slow = slow.next;
     }
-    return slow
+    return slow;
 };
 ```
 
 ### 约瑟夫问题
+
 ```js
 //循环链表
 const josephRing = (n, m) => {
@@ -437,15 +485,15 @@ const josephRing = (n, m) => {
         v++;
     }
     let cur = list.head.next;
-    let sum=0
-    while(list.length()>1){
-        cur=cur.next.value==='head'?list.head.next:cur.next
-        sum++
-        if(sum==m){
-            console.log('出局：'+cur.value);
+    let sum = 0;
+    while (list.length() > 1) {
+        cur = cur.next.value === 'head' ? list.head.next : cur.next;
+        sum++;
+        if (sum == m) {
+            console.log('出局：' + cur.value);
             list.deleteByValue(cur.value);
 
-            sum=0
+            sum = 0;
         }
     }
 
@@ -454,6 +502,162 @@ const josephRing = (n, m) => {
 josephRing(1002, 7);
 ```
 
-### 链表实现了 LRU 缓存
+### 链表实现 LRU 缓存
 
-### 判断一个字符串是否是回文字符串
+实现思路:
+
+-   我们维护一个有序单链表，越靠近链表尾部的结点是越早之前访问的。当有一个新的数据被访问时，我们从链表头开始顺序遍历链表。
+
+-   如果此数据之前已经被缓存在链表中了，我们遍历得到这个数据对应的结点，并将其从原来的位置删除，然后再插入到链表的头部。
+
+-   如果此数据没有在缓存链表中，又可以分为两种情况：
+    -   如果此时缓存未满，则将此结点直接插入到链表的头部；
+    -   如果此时缓存已满，则链表尾结点删除，将新的数据结点插入链表的头部。
+
+```js
+//链表节点
+class Node {
+    constructor(value) {
+        this.value = value;
+        this.next = null;
+    }
+}
+//单链表
+class LRUCache {
+    constructor(size = 20) {
+        this.head = new Node('head');
+        this.size = size;
+    }
+    //按值查询
+    queryByValue(value) {
+        let cur = this.head;
+        while (cur && cur.value !== value) {
+            cur = cur.next;
+        }
+        return cur;
+    }
+    //按index查询(从0开始,0=>head)
+    queryByIndex(index) {
+        let cur = this.head;
+        let sum = 0;
+        while (cur && sum !== index) {
+            cur = cur.next;
+            sum++;
+        }
+        return cur;
+    }
+    //获取node个数
+    length() {
+        let cur = this.head.next,
+            num = 0;
+        while (cur) {
+            num++;
+            cur = cur.next;
+        }
+        return num;
+    }
+    //末尾新增
+    append(value) {
+        const newNode = new Node(value);
+        let cur = this.head;
+        while (cur.next) {
+            cur = cur.next;
+        }
+        cur.next = newNode;
+    }
+    //指定元素(值)后插入
+    insertHead(value) {
+        const newNode = new Node(value);
+        const targetNode = this.head;
+        newNode.next = targetNode.next;
+        targetNode.next = newNode;
+    }
+    //展示所有节点
+    display() {
+        const res = [];
+        let cur = this.head.next;
+        while (cur) {
+            res.push(cur.value);
+            cur = cur.next;
+        }
+        return res.join('=>');
+    }
+    //查找前一个
+    findPrev(item) {
+        let cur = this.head;
+        while (cur.next !== null && cur.next.value !== item) {
+            cur = cur.next;
+        }
+        if (cur.next === null) {
+            return null;
+        }
+        return cur;
+    }
+    //按值删除
+    deleteByValue(value) {
+        let pre = this.findPrev(value);
+        if (pre) {
+            pre.next = pre.next.next;
+        }
+    }
+    //设置缓存
+    set(value) {
+        const node = this.queryByValue(value);
+
+        if (node) {
+            //如果此数据之前已经被缓存在链表中了，我们遍历得到这个数据对应的结点，并将其从原来的位置删除，然后再插入到链表的头部。
+            this.deleteByValue(value);
+            this.insertHead(value);
+        } else {
+            if (this.length() >= this.size) {
+                //如果此时缓存已满，则链表尾结点删除，将新的数据结点插入链表的头部。
+                const last = this.queryByIndex(this.size);
+                this.deleteByValue(last.value);
+                this.insertHead(value);
+            } else {
+                //如果此时缓存未满，则将此结点直接插入到链表的头部；
+                this.insertHead(value);
+            }
+        }
+    }
+}
+```
+
+### 判断一个链表是否为回文链表
+
+```js
+const getMiddle = (head) => {
+    let slow = head,
+        fast = head;
+    while (fast && fast.next) {
+        fast = fast.next.next;
+        slow = slow.next;
+    }
+    return slow;
+};
+const reverse = (head) => {
+    let pre = null,
+        cur = head;
+    while (cur) {
+        let tem = cur.next;
+        cur.next = pre;
+        pre = cur;
+        cur = tem;
+    }
+    return pre;
+};
+var isPalindrome = function(head) {
+    //获取中间节点
+    const mid = getMiddle(head);
+    //后半链表翻转
+    let reverseback = reverse(mid);
+    let cur = head;
+    //mid 为中间节点,双节点后一个;
+    while (reverseback) {
+        if (reverseback.val !== cur.val) return false;
+        reverseback = reverseback.next;
+        cur = cur.next;
+    }
+    return true;
+};
+```
