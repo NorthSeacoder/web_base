@@ -60,6 +60,7 @@ module.exports = {
                 text: 'tools',
                 items: [
                     {text: 'node', link: '/tools/node/'},
+                    {text: 'common', link: '/tools/common/'},
                     //tools
                 ],
             },
@@ -76,6 +77,8 @@ module.exports = {
             
             '/tools/node/': getSidebarConfig('./tools/node/'),
             
+            
+            '/tools/common/': getSidebarConfig('./tools/common/'),
             //sidebar
             
         },
