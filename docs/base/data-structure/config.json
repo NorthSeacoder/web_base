@@ -5,7 +5,8 @@
     },
     "common-data-structure": {
         "title": "常见数据结构",
+        "array": "数组",
         "linked-list": "链表",
-        "array": "数组"
+        "stack":"栈"
     }
 }
