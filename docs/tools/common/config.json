@@ -2,5 +2,9 @@
         "git": {
         "title": "git"
     },
+        "js": {
+        "title": "js",
+        "IntersectionObserver":"判断元素是否可见"
+    },
     "plop-temp":""
 }

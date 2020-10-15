@@ -77,8 +77,8 @@ module.exports = {
             
             '/tools/node/': getSidebarConfig('./tools/node/'),
             
-            
             '/tools/common/': getSidebarConfig('./tools/common/'),
+            
             //sidebar
             
         },
