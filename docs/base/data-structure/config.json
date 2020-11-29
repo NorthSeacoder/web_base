@@ -8,6 +8,7 @@
         "array": "数组",
         "linked-list": "链表",
         "stack":"栈",
-        "queue":"队列"
+        "queue":"队列",
+        "recursion":"递归"
     }
 }
