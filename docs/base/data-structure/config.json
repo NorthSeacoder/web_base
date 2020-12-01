@@ -13,6 +13,7 @@
     },
     "sorts":{
         "title":"排序",
-        "sort-in-place":"原地排序"
+        "sort-1":"O(n²)",
+        "sort-2":"O(nlogn)"
     }
 }

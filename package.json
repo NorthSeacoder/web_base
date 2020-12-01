@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "cz": "git-cz",
+    "cz": "git add . && git-cz",
     "start": "vuepress dev docs",
     "build": "vuepress build docs",
     "deploy": "vuepress build docs&&gh-pages -d docs/.vuepress/dist -b docs",
