@@ -16,6 +16,8 @@
         "sort-1":"O(n²)",
         "sort-2":"O(nlogn)",
         "sort-3":"O(n)",
-        "b-search":"二分查找"
+        "b-search":"二分查找",
+        "skip-list":"跳表",
+        "hash-table":"散列表"
     }
 }
