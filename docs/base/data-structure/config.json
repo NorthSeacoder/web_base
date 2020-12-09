@@ -18,6 +18,7 @@
         "sort-3":"O(n)",
         "b-search":"二分查找",
         "skip-list":"跳表",
-        "hash-table":"散列表"
+        "hash-table":"散列表",
+        "hash":"哈希算法"
     }
 }
