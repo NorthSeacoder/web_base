@@ -9,7 +9,8 @@
         "linked-list": "链表",
         "stack":"栈",
         "queue":"队列",
-        "recursion":"递归"
+        "recursion":"递归",
+        "tree":"树"
     },
     "sorts":{
         "title":"排序",
