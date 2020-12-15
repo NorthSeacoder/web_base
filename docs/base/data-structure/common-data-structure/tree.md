@@ -57,7 +57,12 @@ preOrder(r) = handle(r), preOrder(r.left), preOrder(r.right);
 ```js
 inOrder(r) = inOrder(r.left), handle(r), preOrder(r.right);
 ```
+- 实现
+```js
+//递归
 
+//迭代,左子树
+```
 #### 后序遍历
 
 -   先遍历左子树,再遍历右子树,最后是本身
