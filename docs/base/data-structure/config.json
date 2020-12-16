@@ -10,7 +10,8 @@
         "stack":"栈",
         "queue":"队列",
         "recursion":"递归",
-        "tree":"树"
+        "tree":"树",
+        "heap":"堆"
     },
     "sorts":{
         "title":"排序",
