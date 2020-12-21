@@ -12,7 +12,8 @@
         "recursion":"递归",
         "tree":"树",
         "heap":"堆",
-        "graph":"图"
+        "graph":"图",
+        "string":"字符串"
     },
     "sorts":{
         "title":"排序",
