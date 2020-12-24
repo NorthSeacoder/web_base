@@ -32,8 +32,38 @@
 ### 原理
 
 -   坏字符(BC)
-    - 模式串移动距离为坏字符对应下标-坏字符下标(不存在则为-1,多个则为最后一个)
+    -   模式串移动距离为坏字符对应下标-坏字符下标(不存在则为-1,多个则为最后一个)
 -   好后缀(GS)
 
 ## KMP 算法
+
 跟 bm 都需要后期再过一遍....
+
+## Trie 树(字典树)
+
+### 原理
+
+-   Trie 树的本质,就是利用字符串之间的公共前缀,将除服的前缀合并在一起
+
+### 实现
+
+```js
+class TrieNode {
+    constructor(data) {
+        this.children = new Array(26);
+        this.data = data;
+        this.isEndingChar = false;
+    }
+}
+class Trie {
+    //往 Trie 中插入一个字符串
+    insert(string) {}
+    //在 Trie 中查找一个字符串
+    find(string) {}
+}
+```
+
+## AC自动机
+
+### 原理
+- 在 Trie 的基础上加了 KMP 的 next 数组

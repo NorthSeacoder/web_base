@@ -24,5 +24,9 @@
         "skip-list":"跳表",
         "hash-table":"散列表",
         "hash":"哈希算法"
+    },
+    "algorithm":{
+        "title":"算法思想",
+        "greddy":"贪心算法"
     }
 }
