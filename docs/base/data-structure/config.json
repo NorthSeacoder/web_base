@@ -27,6 +27,7 @@
     },
     "algorithm":{
         "title":"算法思想",
-        "greddy":"贪心算法"
+        "greddy":"贪心算法",
+        "divide-and-conquer":"分治算法"
     }
 }
