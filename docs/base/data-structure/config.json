@@ -29,6 +29,7 @@
         "title":"算法思想",
         "greddy":"贪心算法",
         "divide-and-conquer":"分治算法",
-        "backtracking":"回溯算法"
+        "backtracking":"回溯算法",
+        "dp":"动态规划"
     }
 }
