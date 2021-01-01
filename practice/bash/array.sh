@@ -18,7 +18,10 @@ random_array_element() {
     printf '%s\n' "${arr[RANDOM % $#]}"
 }
 
+# 数组中循环
 cycle() {
+    local arr=(a b c d)
     printf '%s ' "${arr[${i:=0}]}"
     ((i=i>=${#arr[@]}-1?0:++i))
 }
+
