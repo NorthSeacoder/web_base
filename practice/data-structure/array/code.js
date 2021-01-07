@@ -29,7 +29,7 @@ var pivotIndex = function(nums) {
  *
  * 优化后,利用左求和*2+中心索引值 = 总和
  */
-const pivotIndex1 = (nums) => {
+export const pivotIndex1 = (nums) => {
     let sum = 0;
     for (let i = 0; i < nums.length; ++i) {
         sum += nums[i];
@@ -58,7 +58,7 @@ var searchInsert = function(nums, target) {
     return index;
 };
 //二分查找
-var searchInsert1 = function(nums, target) {
+export var searchInsert1 = function(nums, target) {
     let left = 0,
         right = nums.length-1;
     while (left <= right) {
@@ -72,4 +72,49 @@ var searchInsert1 = function(nums, target) {
     return left;
 };
 
-export default {pivotIndex1};
+
+/**
+ * 合并区间 56
+ * @param {number[][]} intervals
+ * @return {number[][]}
+ */
+//先排序,然后从左边开始找
+export var merge = function (intervals) {
+    intervals.sort((a,b)=>a[0]-b[0]);
+    let left =intervals.shift(),right=intervals.shift();
+    const res=[]
+    
+    while(intervals.length>=0&&!!left){
+        if(left&&right&&left[0]>right[1]){
+            res.push(right);
+            right=intervals.shift();
+            continue;
+        }
+        
+        if(left&&right&&left[1]>=right[0]){
+            left[1]=Math.max(right[1],left[1]);
+            right=intervals.shift();
+            continue;
+        }
+        res.push(left);
+        left=right;
+        right=intervals.shift();
+    }
+    return res
+};
+//贪心(类似区间类最好画图)
+export var merge1 = function (intervals) {
+    intervals.sort((a,b)=>a[0]-b[0]);
+    const res=[]
+    res.push(intervals[0]);
+    for(let i =1;i<intervals.length;i++){
+        const cur=intervals[i];
+        const resLast=res[res.length-1];
+        if(resLast[1]<cur[0]){
+            res.push(cur)
+        }else{
+            resLast[1]=Math.max(cur[1],resLast[1])
+        }
+    }
+    return res
+};
